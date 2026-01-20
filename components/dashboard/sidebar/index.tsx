@@ -10,6 +10,7 @@ import CubeIcon from "@/components/icons/cube";
 import MonitorIcon from "@/components/icons/monitor";
 import ZapIcon from "@/components/icons/zap";
 import GearIcon from "@/components/icons/gear";
+import BookIcon from "@/components/icons/book";
 
 // Navigation items for Machine Vision System
 const navItems = [
@@ -42,6 +43,11 @@ const navItems = [
     title: "Settings",
     url: "/settings",
     icon: GearIcon,
+  },
+  {
+    title: "Docs",
+    url: "/docs",
+    icon: BookIcon,
   },
 ];
 
