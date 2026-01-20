@@ -1,0 +1,172 @@
+import type { Project, Camera, Model, InferenceResult } from "@/types/vision";
+
+export const mockProjects: Project[] = [
+  {
+    id: "proj-001",
+    name: "PCB Inspection Line 1",
+    description: "Automated PCB defect detection for production line 1",
+    createdAt: "2025-01-15T08:00:00Z",
+    updatedAt: "2025-01-20T14:30:00Z",
+    status: "active",
+    cameras: [],
+    models: [],
+  },
+  {
+    id: "proj-002",
+    name: "Bottle Label Check",
+    description: "Label alignment and quality inspection",
+    createdAt: "2025-01-10T10:00:00Z",
+    updatedAt: "2025-01-19T09:15:00Z",
+    status: "active",
+    cameras: [],
+    models: [],
+  },
+  {
+    id: "proj-003",
+    name: "Metal Parts QC",
+    description: "Surface defect detection for metal components",
+    createdAt: "2025-01-05T12:00:00Z",
+    updatedAt: "2025-01-18T16:45:00Z",
+    status: "inactive",
+    cameras: [],
+    models: [],
+  },
+];
+
+export const mockCameras: Camera[] = [
+  {
+    id: "cam-001",
+    name: "GigE Camera 1",
+    protocol: "GigE",
+    connectionString: "192.168.1.100",
+    status: "connected",
+    mode: "auto",
+    settings: {
+      resolution: { width: 1920, height: 1080 },
+      frameRate: 30,
+      exposure: 10000,
+      gain: 1.0,
+      brightness: 50,
+      contrast: 50,
+      saturation: 50,
+    },
+    createdAt: "2025-01-15T08:00:00Z",
+  },
+  {
+    id: "cam-002",
+    name: "RTSP Camera 1",
+    protocol: "RTSP",
+    connectionString: "rtsp://192.168.1.101:554/stream1",
+    status: "connected",
+    mode: "auto",
+    settings: {
+      resolution: { width: 1280, height: 720 },
+      frameRate: 25,
+      exposure: 8000,
+      gain: 1.2,
+      brightness: 55,
+      contrast: 45,
+      saturation: 50,
+    },
+    createdAt: "2025-01-16T10:00:00Z",
+  },
+  {
+    id: "cam-003",
+    name: "HTTP Camera 1",
+    protocol: "HTTP",
+    connectionString: "http://192.168.1.102/snapshot",
+    status: "disconnected",
+    mode: "snapshot",
+    triggerSource: "timer",
+    triggerInterval: 5000,
+    settings: {
+      resolution: { width: 2592, height: 1944 },
+      frameRate: 5,
+      exposure: 15000,
+      gain: 1.5,
+      brightness: 60,
+      contrast: 55,
+      saturation: 45,
+    },
+    createdAt: "2025-01-17T14:00:00Z",
+  },
+];
+
+export const mockModels: Model[] = [
+  {
+    id: "model-001",
+    name: "PCB Defect Detector v2",
+    filename: "pcb_defect_v2.onnx",
+    fileSize: 45000000,
+    classes: [
+      { id: 0, name: "OK", color: "#22c55e" },
+      { id: 1, name: "Scratch", color: "#ef4444" },
+      { id: 2, name: "Missing Component", color: "#f97316" },
+      { id: 3, name: "Solder Bridge", color: "#eab308" },
+      { id: 4, name: "Cold Solder", color: "#8b5cf6" },
+    ],
+    confidence: 0.7,
+    createdAt: "2025-01-14T09:00:00Z",
+    status: "ready",
+  },
+  {
+    id: "model-002",
+    name: "Label Detector v1",
+    filename: "label_detector_v1.onnx",
+    fileSize: 28000000,
+    classes: [
+      { id: 0, name: "Good", color: "#22c55e" },
+      { id: 1, name: "Misaligned", color: "#ef4444" },
+      { id: 2, name: "Wrinkled", color: "#f97316" },
+      { id: 3, name: "Missing", color: "#eab308" },
+    ],
+    confidence: 0.65,
+    roi: { x: 100, y: 50, width: 400, height: 300 },
+    createdAt: "2025-01-12T11:00:00Z",
+    status: "ready",
+  },
+];
+
+export const mockInferenceResults: InferenceResult[] = [
+  {
+    id: "result-001",
+    timestamp: "2025-01-20T14:30:15Z",
+    cameraId: "cam-001",
+    modelId: "model-001",
+    imageUrl: "/assets/pc_blueprint.gif",
+    detections: [
+      {
+        classId: 1,
+        className: "Scratch",
+        confidence: 0.92,
+        boundingBox: { x: 150, y: 200, width: 80, height: 40 },
+        color: "#ef4444",
+      },
+      {
+        classId: 3,
+        className: "Solder Bridge",
+        confidence: 0.85,
+        boundingBox: { x: 320, y: 150, width: 60, height: 50 },
+        color: "#eab308",
+      },
+    ],
+    processingTime: 45,
+  },
+  {
+    id: "result-002",
+    timestamp: "2025-01-20T14:30:10Z",
+    cameraId: "cam-001",
+    modelId: "model-001",
+    imageUrl: "/assets/pc_blueprint.gif",
+    detections: [
+      {
+        classId: 0,
+        className: "OK",
+        confidence: 0.98,
+        boundingBox: { x: 0, y: 0, width: 640, height: 480 },
+        color: "#22c55e",
+      },
+    ],
+    processingTime: 42,
+  },
+];
