@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import MonkeyIcon from "@/components/icons/monkey";
+import CameraIcon from "@/components/icons/camera";
 import MobileNotifications from "@/components/dashboard/notifications/mobile-notifications";
 import type { MockData } from "@/types/dashboard";
 import BellIcon from "@/components/icons/bell";
@@ -21,11 +21,12 @@ export function MobileHeader({ mockData }: MobileHeaderProps) {
         {/* Left: Sidebar Menu */}
         <SidebarTrigger />
 
-        {/* Center: Monkey Logo + Time */}
+        {/* Center: Logo */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-16 bg-primary rounded flex items-center justify-center">
-              <MonkeyIcon className="size-6 text-primary-foreground" />
+            <div className="h-8 px-3 bg-primary rounded flex items-center justify-center gap-2">
+              <CameraIcon className="size-5 text-primary-foreground" />
+              <span className="font-display text-sm text-primary-foreground">Fac Vision</span>
             </div>
           </div>
         </div>

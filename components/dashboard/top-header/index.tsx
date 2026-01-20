@@ -1,13 +1,13 @@
 "use client";
 
-import MonkeyIcon from "@/components/icons/monkey";
+import CameraIcon from "@/components/icons/camera";
 import BellIcon from "@/components/icons/bell";
 import GearIcon from "@/components/icons/gear";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 const user = {
-  name: "KRIMSON",
+  name: "Admin",
   avatar: "/avatars/user_krimson.png",
 };
 
@@ -17,12 +17,12 @@ export function TopHeader() {
       <div className="flex h-[var(--header-height)] items-center justify-between px-6">
         {/* Left - Logo and Brand */}
         <div className="flex items-center gap-4">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary overflow-clip">
-            <MonkeyIcon className="size-8" />
+          <div className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <CameraIcon className="size-6" />
           </div>
           <div className="flex flex-col">
-            <span className="text-2xl font-display text-foreground">M.O.N.K.Y.</span>
-            <span className="text-xs uppercase text-muted-foreground">The OS for Rebels</span>
+            <span className="text-2xl font-display text-foreground">Fac Vision</span>
+            <span className="text-xs uppercase text-muted-foreground">Machine Vision System</span>
           </div>
         </div>
 

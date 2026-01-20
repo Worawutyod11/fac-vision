@@ -32,11 +32,11 @@ const isV0 = process.env["VERCEL_URL"]?.includes("vusercontent.net") ?? false;
 
 export const metadata: Metadata = {
   title: {
-    template: "%s – M.O.N.K.Y OS",
-    default: "M.O.N.K.Y OS",
+    template: "%s – Fac Vision",
+    default: "Fac Vision",
   },
   description:
-    "The ultimate OS for rebels. Making the web for brave individuals.",
+    "Industrial Machine Vision Inspection System - AI-powered quality control and monitoring.",
     generator: 'v0.app'
 };
 
