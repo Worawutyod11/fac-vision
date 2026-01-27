@@ -3,7 +3,9 @@
 ระบบตรวจสอบคุณภาพด้วย AI สำหรับงานอุตสาหกรรม รองรับกล้อง Industrial Camera หลายประเภท พร้อมระบบ Integration กับ PLC และ IoT
 
 ---
------
+
+---
+
 ## สารบัญ
 
 - [ภาพรวมระบบ](#ภาพรวมระบบ)
@@ -60,17 +62,20 @@ Fac Vision เป็นระบบ Machine Vision สำหรับตรว�
 ## คุณสมบัติหลัก
 
 ### 1. รองรับกล้องหลายประเภท
-| ประเภท | Protocol | Use Case |
-|--------|----------|----------|
-| **RTSP** | Real Time Streaming Protocol | IP Camera ทั่วไป, Network Camera |
-| **GigE Vision** | GigE Vision Protocol | Industrial Camera, High-speed Inspection |
-| **HTTP** | HTTP/HTTPS | Web Camera, REST API Camera |
+
+| ประเภท          | Protocol                     | Use Case                                 |
+| --------------- | ---------------------------- | ---------------------------------------- |
+| **RTSP**        | Real Time Streaming Protocol | IP Camera ทั่วไป, Network Camera         |
+| **GigE Vision** | GigE Vision Protocol         | Industrial Camera, High-speed Inspection |
+| **HTTP**        | HTTP/HTTPS                   | Web Camera, REST API Camera              |
 
 ### 2. โหมดการทำงาน
+
 - **Auto Mode** - ประมวลผลต่อเนื่องอัตโนมัติ
 - **Snapshot Mode** - ถ่ายภาพตาม Trigger Signal
 
 ### 3. Trigger Sources (สำหรับ Snapshot Mode)
+
 - Digital Input (DI)
 - Modbus Register
 - MQTT Topic
@@ -78,12 +83,14 @@ Fac Vision เป็นระบบ Machine Vision สำหรับตรว�
 - Timer Interval
 
 ### 4. AI Model Support
+
 - ONNX Runtime
 - TensorRT
 - OpenVINO
 - Custom Framework
 
 ### 5. Output Actions
+
 - Database Logging (PostgreSQL, MySQL, SQLite)
 - Modbus TCP (Write Coil/Register)
 - MQTT Publish
@@ -94,22 +101,22 @@ Fac Vision เป็นระบบ Machine Vision สำหรับตรว�
 
 ### Hardware Requirements
 
-| Component | Minimum | Recommended |
-|-----------|---------|-------------|
-| CPU | Intel i5 Gen 8+ | Intel i7 Gen 10+ / AMD Ryzen 7 |
-| RAM | 8 GB | 16 GB+ |
-| GPU | - | NVIDIA GTX 1060+ (CUDA Support) |
-| Storage | 256 GB SSD | 512 GB NVMe SSD |
-| Network | 1 Gbps | 1 Gbps (Dedicated for GigE Camera) |
+| Component | Minimum         | Recommended                        |
+| --------- | --------------- | ---------------------------------- |
+| CPU       | Intel i5 Gen 8+ | Intel i7 Gen 10+ / AMD Ryzen 7     |
+| RAM       | 8 GB            | 16 GB+                             |
+| GPU       | -               | NVIDIA GTX 1060+ (CUDA Support)    |
+| Storage   | 256 GB SSD      | 512 GB NVMe SSD                    |
+| Network   | 1 Gbps          | 1 Gbps (Dedicated for GigE Camera) |
 
 ### Software Requirements
 
-| Software | Version |
-|----------|---------|
+| Software         | Version                      |
+| ---------------- | ---------------------------- |
 | Operating System | Windows 10/11, Ubuntu 20.04+ |
-| Node.js | 18.x LTS หรือสูงกว่า |
-| Python | 3.9+ (สำหรับ Backend) |
-| Database | PostgreSQL 14+ / MySQL 8+ |
+| Node.js          | 18.x LTS หรือสูงกว่า         |
+| Python           | 3.9+ (สำหรับ Backend)        |
+| Database         | PostgreSQL 14+ / MySQL 8+    |
 
 ### Network Requirements สำหรับ GigE Camera
 
@@ -221,12 +228,12 @@ python main.py
 
 #### ข้อมูลที่แสดง
 
-| Field | Description |
-|-------|-------------|
-| Status | Active (กำลังทำงาน) / Inactive (หยุดทำงาน) |
-| Cameras | จำนวนกล้องที่เชื่อมต่อ |
-| Models | จำนวนโมเดลที่ใช้ |
-| Created | วันที่สร้าง |
+| Field   | Description                                |
+| ------- | ------------------------------------------ |
+| Status  | Active (กำลังทำงาน) / Inactive (หยุดทำงาน) |
+| Cameras | จำนวนกล้องที่เชื่อมต่อ                     |
+| Models  | จำนวนโมเดลที่ใช้                           |
+| Created | วันที่สร้าง                                |
 
 ---
 
@@ -245,17 +252,20 @@ python main.py
 #### การตั้งค่าตามประเภทกล้อง
 
 **RTSP Camera:**
+
 ```
 URL: rtsp://username:password@192.168.1.100:554/stream1
 ```
 
 **GigE Vision Camera:**
+
 ```
 IP Address: 192.168.1.10
 Port: 3956 (default)
 ```
 
 **HTTP Camera:**
+
 ```
 URL: http://192.168.1.20/capture
 Method: GET
@@ -264,22 +274,24 @@ Headers: (Optional)
 
 #### Camera Settings
 
-| Parameter | Description | Range |
-|-----------|-------------|-------|
-| Resolution | ความละเอียดภาพ | 640x480 - 4096x2160 |
-| Frame Rate | อัตราเฟรม | 1-120 fps |
-| Exposure | ค่าแสง | Auto / Manual (μs) |
-| Gain | ค่า Gain | Auto / Manual (dB) |
-| White Balance | สมดุลแสงขาว | Auto / Manual |
-| Gamma | ค่า Gamma | 0.5 - 2.0 |
+| Parameter     | Description    | Range               |
+| ------------- | -------------- | ------------------- |
+| Resolution    | ความละเอียดภาพ | 640x480 - 4096x2160 |
+| Frame Rate    | อัตราเฟรม      | 1-120 fps           |
+| Exposure      | ค่าแสง         | Auto / Manual (μs)  |
+| Gain          | ค่า Gain       | Auto / Manual (dB)  |
+| White Balance | สมดุลแสงขาว    | Auto / Manual       |
+| Gamma         | ค่า Gamma      | 0.5 - 2.0           |
 
 #### โหมดการทำงาน
 
 **Auto Mode:**
+
 - ประมวลผลต่อเนื่อง
 - เหมาะกับ Continuous Inspection
 
 **Snapshot Mode:**
+
 - ถ่ายภาพตาม Trigger
 - Trigger Sources:
   - **Digital Input** - สัญญาณจาก Sensor/PLC
@@ -304,12 +316,12 @@ Headers: (Optional)
 
 #### Supported Model Formats
 
-| Format | Extension | Framework |
-|--------|-----------|-----------|
-| ONNX | .onnx | ONNX Runtime |
+| Format   | Extension     | Framework       |
+| -------- | ------------- | --------------- |
+| ONNX     | .onnx         | ONNX Runtime    |
 | TensorRT | .engine, .trt | NVIDIA TensorRT |
-| OpenVINO | .xml, .bin | Intel OpenVINO |
-| PyTorch | .pt, .pth | PyTorch |
+| OpenVINO | .xml, .bin    | Intel OpenVINO  |
+| PyTorch  | .pt, .pth     | PyTorch         |
 
 #### การอัพโหลดโมเดล
 
@@ -336,11 +348,11 @@ Classes:
 
 #### Model Configuration
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| Confidence Threshold | ค่าความมั่นใจขั้นต่ำ | 0.5 |
-| IoU Threshold | ค่า Intersection over Union | 0.45 |
-| Max Detections | จำนวน Detection สูงสุด | 100 |
+| Parameter            | Description                 | Default |
+| -------------------- | --------------------------- | ------- |
+| Confidence Threshold | ค่าความมั่นใจขั้นต่ำ        | 0.5     |
+| IoU Threshold        | ค่า Intersection over Union | 0.45    |
+| Max Detections       | จำนวน Detection สูงสุด      | 100     |
 
 #### ROI (Region of Interest)
 
@@ -411,6 +423,7 @@ Classes:
 #### Overlay Information
 
 ข้อมูลที่แสดงบนภาพ:
+
 - Bounding Box (กรอบวัตถุ)
 - Class Name (ชื่อ Class)
 - Confidence Score (ค่าความมั่นใจ)
@@ -433,6 +446,7 @@ Classes:
 บันทึกผลลัพธ์ลงฐานข้อมูล
 
 **การตั้งค่า:**
+
 ```
 Database Type: PostgreSQL / MySQL / SQLite
 Host: localhost
@@ -459,6 +473,7 @@ Password: ********
 ส่งค่าไปยัง PLC ผ่าน Modbus TCP
 
 **การตั้งค่า:**
+
 ```
 Host: 192.168.1.50
 Port: 502
@@ -474,6 +489,7 @@ Unit ID: 1
 | Write Multiple Registers | 16 | เขียน Register หลายตัว |
 
 **ตัวอย่างการตั้งค่า:**
+
 ```
 เมื่อตรวจพบ Class "Scratch":
   - Function: Write Single Coil (05)
@@ -491,6 +507,7 @@ Unit ID: 1
 Publish ข้อมูลไปยัง MQTT Broker
 
 **การตั้งค่า:**
+
 ```
 Broker URL: mqtt://192.168.1.100:1883
 Username: (optional)
@@ -501,6 +518,7 @@ QoS: 1
 ```
 
 **Payload Format (JSON):**
+
 ```json
 {
   "timestamp": "2024-01-15T10:30:00Z",
@@ -531,27 +549,27 @@ QoS: 1
 
 #### General Settings
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| Language | ภาษาที่แสดง | English |
-| Theme | ธีมหน้าจอ | Dark |
-| Auto Start | เริ่มทำงานอัตโนมัติ | Off |
+| Setting    | Description         | Default |
+| ---------- | ------------------- | ------- |
+| Language   | ภาษาที่แสดง         | English |
+| Theme      | ธีมหน้าจอ           | Dark    |
+| Auto Start | เริ่มทำงานอัตโนมัติ | Off     |
 
 #### Performance Settings
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| GPU Acceleration | ใช้ GPU ประมวลผล | On |
-| Max Workers | จำนวน Worker Threads | 4 |
-| Buffer Size | ขนาด Frame Buffer | 30 |
+| Setting          | Description          | Default |
+| ---------------- | -------------------- | ------- |
+| GPU Acceleration | ใช้ GPU ประมวลผล     | On      |
+| Max Workers      | จำนวน Worker Threads | 4       |
+| Buffer Size      | ขนาด Frame Buffer    | 30      |
 
 #### Storage Settings
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| Image Storage | Path เก็บรูปภาพ | ./storage/images |
-| Video Storage | Path เก็บวิดีโอ | ./storage/videos |
-| Auto Cleanup | ลบไฟล์เก่าอัตโนมัติ | 30 days |
+| Setting       | Description         | Default          |
+| ------------- | ------------------- | ---------------- |
+| Image Storage | Path เก็บรูปภาพ     | ./storage/images |
+| Video Storage | Path เก็บวิดีโอ     | ./storage/videos |
+| Auto Cleanup  | ลบไฟล์เก่าอัตโนมัติ | 30 days          |
 
 ---
 
@@ -603,6 +621,7 @@ QoS: 1
 ### REST API Endpoints
 
 #### Projects
+
 ```
 GET    /api/projects          - List all projects
 POST   /api/projects          - Create project
@@ -612,6 +631,7 @@ DELETE /api/projects/:id      - Delete project
 ```
 
 #### Cameras
+
 ```
 GET    /api/cameras           - List all cameras
 POST   /api/cameras           - Add camera
@@ -623,6 +643,7 @@ POST   /api/cameras/:id/capture - Capture image
 ```
 
 #### Models
+
 ```
 GET    /api/models            - List all models
 POST   /api/models            - Upload model
@@ -633,6 +654,7 @@ POST   /api/models/:id/test   - Test inference
 ```
 
 #### Inference
+
 ```
 POST   /api/inference/start   - Start inference
 POST   /api/inference/stop    - Stop inference
@@ -647,6 +669,7 @@ GET    /api/inference/results - Get results
 ### Camera Connection Issues
 
 **ปัญหา: ไม่สามารถเชื่อมต่อ GigE Camera**
+
 ```
 สาเหตุที่เป็นไปได้:
 1. IP Address ไม่ถูกต้อง
@@ -661,6 +684,7 @@ GET    /api/inference/results - Get results
 ```
 
 **ปัญหา: RTSP Stream ไม่แสดงภาพ**
+
 ```
 สาเหตุที่เป็นไปได้:
 1. URL ไม่ถูกต้อง
@@ -676,6 +700,7 @@ GET    /api/inference/results - Get results
 ### Model Issues
 
 **ปัญหา: Model load ช้า**
+
 ```
 แก้ไข:
 1. ใช้ TensorRT แทน ONNX
@@ -684,6 +709,7 @@ GET    /api/inference/results - Get results
 ```
 
 **ปัญหา: Inference ผิดพลาด**
+
 ```
 แก้ไข:
 1. ตรวจสอบ Input size
@@ -694,6 +720,7 @@ GET    /api/inference/results - Get results
 ### Performance Issues
 
 **ปัญหา: FPS ต่ำ**
+
 ```
 แก้ไข:
 1. ลด Resolution
