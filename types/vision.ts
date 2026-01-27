@@ -11,7 +11,7 @@ export interface Project {
 }
 
 // Camera Types
-export type CameraProtocol = "RTSP" | "GigE" | "HTTP";
+export type CameraProtocol = "RTSP" | "GigE" | "HTTP" | "USB";
 export type CameraMode = "auto" | "snapshot";
 export type TriggerSource = "software" | "hardware" | "timer" | "external";
 

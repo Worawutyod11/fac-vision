@@ -10,12 +10,15 @@ import PlusIcon from "@/components/icons/plus";
 import FolderIcon from "@/components/icons/folder";
 import { ProjectDialog } from "./project-dialog";
 
+import { useProjectStore } from "@/lib/store";
+
 interface ProjectListProps {
   projects: Project[];
 }
 
 export function ProjectList({ projects: initialProjects }: ProjectListProps) {
   const [projects, setProjects] = useState(initialProjects);
+  const { setSelectedProject } = useProjectStore();
   const [searchQuery, setSearchQuery] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
@@ -119,7 +122,8 @@ export function ProjectList({ projects: initialProjects }: ProjectListProps) {
               {filteredProjects.map((project) => (
                 <div
                   key={project.id}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors group"
+                  onClick={() => setSelectedProject(project)}
+                  className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors group cursor-pointer"
                 >
                   <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                     <FolderIcon className="size-6" />
@@ -145,7 +149,8 @@ export function ProjectList({ projects: initialProjects }: ProjectListProps) {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent selection when clicking edit
                         setEditingProject(project);
                         setDialogOpen(true);
                       }}
@@ -156,7 +161,10 @@ export function ProjectList({ projects: initialProjects }: ProjectListProps) {
                       variant="outline"
                       size="sm"
                       className="text-destructive hover:text-destructive bg-transparent"
-                      onClick={() => handleDeleteProject(project.id)}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent selection when clicking delete
+                        handleDeleteProject(project.id);
+                      }}
                     >
                       Delete
                     </Button>

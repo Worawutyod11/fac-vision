@@ -1,7 +1,7 @@
 import DashboardPageLayout from "@/components/dashboard/layout";
 import CubeIcon from "@/components/icons/cube";
 import { ModelList } from "@/components/vision/model-list";
-import { mockModels } from "@/data/vision-mock";
+import { mockModels, mockCameras } from "@/data/vision-mock";
 
 export default function ModelsPage() {
   return (
@@ -12,7 +12,7 @@ export default function ModelsPage() {
         icon: CubeIcon,
       }}
     >
-      <ModelList models={mockModels} />
+      <ModelList models={mockModels} cameras={mockCameras} />
     </DashboardPageLayout>
   );
 }

@@ -9,13 +9,14 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import type { Model, Detection } from "@/types/vision";
+import type { Model, Detection, Camera } from "@/types/vision";
 import Image from "next/image";
 
 interface ModelTestDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   model: Model | null;
+  cameras?: Camera[];
 }
 
 // Mock detection results
@@ -42,11 +43,14 @@ export function ModelTestDialog({
   open,
   onOpenChange,
   model,
+  cameras = [],
 }: ModelTestDialogProps) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [detections, setDetections] = useState<Detection[]>([]);
   const [processingTime, setProcessingTime] = useState(0);
   const [testImage, setTestImage] = useState<string | null>(null);
+  const [selectedCamera, setSelectedCamera] = useState<Camera | null>(null);
+  const [testSource, setTestSource] = useState<"upload" | "camera">("upload");
 
   const handleRunInference = async () => {
     if (!model) return;
@@ -75,6 +79,13 @@ export function ModelTestDialog({
     }
   };
 
+  const handleCameraCapture = () => {
+    if (!selectedCamera) return;
+    // Use camera's last frame or mock image
+    setTestImage(selectedCamera.lastFrame || "/assets/pc_blueprint.gif");
+    setDetections([]);
+  };
+
   if (!model) return null;
 
   return (
@@ -90,6 +101,57 @@ export function ModelTestDialog({
         </DialogHeader>
 
         <div className="space-y-4">
+          {/* Source Selection */}
+          <div className="flex gap-2">
+            <Button
+              type="button"
+              variant={testSource === "upload" ? "default" : "outline"}
+              size="sm"
+              onClick={() => {
+                setTestSource("upload");
+                setTestImage(null);
+                setDetections([]);
+              }}
+              className="flex-1"
+            >
+              Upload Image
+            </Button>
+            <Button
+              type="button"
+              variant={testSource === "camera" ? "default" : "outline"}
+              size="sm"
+              onClick={() => {
+                setTestSource("camera");
+                setTestImage(null);
+                setDetections([]);
+              }}
+              className="flex-1"
+              disabled={cameras.length === 0}
+            >
+              Use Camera
+            </Button>
+          </div>
+
+          {/* Camera Selection */}
+          {testSource === "camera" && cameras.length > 0 && (
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Select Camera</label>
+              <div className="flex flex-wrap gap-2">
+                {cameras.map((camera) => (
+                  <Button
+                    key={camera.id}
+                    variant={selectedCamera?.id === camera.id ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedCamera(camera)}
+                    disabled={camera.status !== "connected"}
+                  >
+                    {camera.name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Image Preview Area */}
           <div className="relative aspect-video bg-muted/50 rounded-xl overflow-hidden border border-border">
             {testImage ? (
@@ -136,17 +198,28 @@ export function ModelTestDialog({
 
           {/* Controls */}
           <div className="flex items-center gap-3">
-            <div className="relative flex-1">
-              <input
-                type="file"
-                accept="image/*"
-                className="absolute inset-0 opacity-0 cursor-pointer"
-                onChange={(e) => handleImageUpload(e.target.files?.[0] || null)}
-              />
-              <Button variant="outline" className="w-full bg-transparent">
-                Upload Test Image
+            {testSource === "upload" ? (
+              <div className="relative flex-1">
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="absolute inset-0 opacity-0 cursor-pointer"
+                  onChange={(e) => handleImageUpload(e.target.files?.[0] || null)}
+                />
+                <Button variant="outline" className="w-full bg-transparent">
+                  Upload Test Image
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={handleCameraCapture}
+                disabled={!selectedCamera || selectedCamera.status !== "connected"}
+              >
+                Capture from Camera
               </Button>
-            </div>
+            )}
             <Button
               onClick={handleRunInference}
               disabled={!testImage || isProcessing}

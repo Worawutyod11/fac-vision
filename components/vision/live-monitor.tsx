@@ -21,8 +21,8 @@ export function LiveMonitor({
   const [selectedCamera, setSelectedCamera] = useState<Camera | null>(
     cameras.find((c) => c.status === "connected") || cameras[0] || null
   );
-  const [selectedModel, setSelectedModel] = useState<Model | null>(
-    models.find((m) => m.status === "ready") || models[0] || null
+  const [selectedModels, setSelectedModels] = useState<Model[]>(
+    models.filter((m) => m.status === "ready").slice(0, 1)
   );
   const [isRunning, setIsRunning] = useState(false);
   const [results, setResults] = useState<InferenceResult[]>(initialResults);
@@ -36,7 +36,10 @@ export function LiveMonitor({
 
   // Generate mock detections
   const generateMockDetection = useCallback((): InferenceResult | null => {
-    if (!selectedCamera || !selectedModel) return null;
+    if (!selectedCamera || selectedModels.length === 0) return null;
+
+    // Randomly pick one of the selected models for this detection
+    const selectedModel = selectedModels[Math.floor(Math.random() * selectedModels.length)];
 
     const numDetections = Math.floor(Math.random() * 3) + 1;
     const detections: Detection[] = Array.from({ length: numDetections }, () => {
@@ -67,7 +70,7 @@ export function LiveMonitor({
       detections: detections.filter((d) => d.confidence >= selectedModel.confidence),
       processingTime: Math.floor(Math.random() * 50) + 20,
     };
-  }, [selectedCamera, selectedModel]);
+  }, [selectedCamera, selectedModels]);
 
   // Simulation loop
   useEffect(() => {
@@ -97,6 +100,19 @@ export function LiveMonitor({
 
     return () => clearInterval(interval);
   }, [isRunning, generateMockDetection]);
+
+  const toggleModel = (model: Model) => {
+    setSelectedModels((prev) => {
+      const isSelected = prev.some((m) => m.id === model.id);
+      if (isSelected) {
+        // Remove model
+        return prev.filter((m) => m.id !== model.id);
+      } else {
+        // Add model
+        return [...prev, model];
+      }
+    });
+  };
 
   const formatTime = (timestamp: string) => {
     return new Date(timestamp).toLocaleTimeString("th-TH", {
@@ -149,10 +165,10 @@ export function LiveMonitor({
                   <Button
                     key={model.id}
                     variant={
-                      selectedModel?.id === model.id ? "default" : "outline"
+                      selectedModels.some((m) => m.id === model.id) ? "default" : "outline"
                     }
                     size="sm"
-                    onClick={() => setSelectedModel(model)}
+                    onClick={() => toggleModel(model)}
                     disabled={model.status !== "ready"}
                   >
                     {model.name}
@@ -169,7 +185,7 @@ export function LiveMonitor({
               <Button
                 variant={isRunning ? "destructive" : "default"}
                 onClick={() => setIsRunning(!isRunning)}
-                disabled={!selectedCamera || !selectedModel}
+                disabled={!selectedCamera || selectedModels.length === 0}
                 className="min-w-[100px]"
               >
                 {isRunning ? "Stop" : "Start"}

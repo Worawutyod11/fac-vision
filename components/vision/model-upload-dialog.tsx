@@ -106,7 +106,7 @@ export function ModelUploadDialog({
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* File Upload Zone */}
           <div
-            className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
+            className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
               isDragOver
                 ? "border-primary bg-primary/5"
                 : "border-border hover:border-primary/50"
@@ -137,7 +137,7 @@ export function ModelUploadDialog({
             <input
               type="file"
               accept=".onnx,.pt,.tflite"
-              className="absolute inset-0 opacity-0 cursor-pointer"
+              className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
               onChange={(e) => handleFileSelect(e.target.files?.[0] || null)}
             />
           </div>
@@ -154,53 +154,6 @@ export function ModelUploadDialog({
               placeholder="Enter model name"
               required
             />
-          </div>
-
-          {/* Classes */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Classes</label>
-            <div className="flex flex-wrap gap-2 min-h-[40px] p-2 rounded-lg bg-muted/50">
-              {classes.map((cls) => (
-                <span
-                  key={cls.id}
-                  className="inline-flex items-center gap-1.5 px-2 py-1 rounded text-sm"
-                  style={{
-                    backgroundColor: `${cls.color}20`,
-                    color: cls.color,
-                    border: `1px solid ${cls.color}40`,
-                  }}
-                >
-                  <span
-                    className="size-2 rounded-full"
-                    style={{ backgroundColor: cls.color }}
-                  />
-                  {cls.name}
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveClass(cls.id)}
-                    className="ml-1 hover:opacity-70"
-                  >
-                    x
-                  </button>
-                </span>
-              ))}
-            </div>
-            <div className="flex gap-2">
-              <Input
-                value={newClassName}
-                onChange={(e) => setNewClassName(e.target.value)}
-                placeholder="Add class name"
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    handleAddClass();
-                  }
-                }}
-              />
-              <Button type="button" variant="outline" onClick={handleAddClass}>
-                <PlusIcon className="size-4" />
-              </Button>
-            </div>
           </div>
 
           <DialogFooter>

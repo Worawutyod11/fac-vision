@@ -195,7 +195,11 @@ export default function DashboardChart() {
         </TabsList>
         <div className="flex items-center gap-6 max-md:order-1">
           {Object.entries(chartConfig).map(([key, value]) => (
-            <ChartLegend key={key} label={value.label} color={value.color} />
+            <ChartLegend
+              key={key}
+              label={(value as { label: string; color: string }).label}
+              color={(value as { label: string; color: string }).color}
+            />
           ))}
         </div>
       </div>

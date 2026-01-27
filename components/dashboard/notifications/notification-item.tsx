@@ -27,7 +27,12 @@ export default function NotificationItem({
     } else if (hours < 24) {
       return `${hours}h ago`;
     } else {
-      return date.toLocaleDateString();
+      // Use consistent date format to avoid hydration mismatch
+      return date.toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric'
+      });
     }
   };
 
