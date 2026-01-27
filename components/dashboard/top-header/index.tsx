@@ -5,6 +5,7 @@ import BellIcon from "@/components/icons/bell";
 import GearIcon from "@/components/icons/gear";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 const user = {
   name: "Admin",
@@ -34,9 +35,11 @@ export function TopHeader() {
           <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
             <BellIcon className="size-5" />
           </Button>
-          <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
-            <GearIcon className="size-5" />
-          </Button>
+          <Link href="/settings">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
+              <GearIcon className="size-5" />
+            </Button>
+          </Link>
           <div className="ml-2 flex items-center gap-3">
             <div className="size-9 rounded-full overflow-clip bg-primary">
               <Image
