@@ -11,6 +11,7 @@ import MonitorIcon from "@/components/icons/monitor";
 import ZapIcon from "@/components/icons/zap";
 import GearIcon from "@/components/icons/gear";
 import BookIcon from "@/components/icons/book";
+import CuteRobotIcon from "@/components/icons/cute-robot";
 
 import { useProjectStore } from "@/lib/store";
 
@@ -103,16 +104,16 @@ export function DashboardSidebar({ className }: { className?: string }) {
         {!selectedProject && (
           <>
             <Link
-              href="/settings"
+              href="/training"
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors",
-                pathname === "/settings"
+                pathname === "/training"
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:bg-sidebar-accent hover:text-foreground"
               )}
             >
-              <GearIcon className="size-5 shrink-0" />
-              <span className="text-sm font-medium">Settings</span>
+              <CuteRobotIcon className="size-5 shrink-0" />
+              <span className="text-sm font-medium">Training AI</span>
             </Link>
 
             <Link
