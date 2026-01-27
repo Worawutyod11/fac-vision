@@ -23,7 +23,7 @@ interface CameraDialogProps {
   mode: "create" | "edit";
 }
 
-const protocols: CameraProtocol[] = ["GigE", "RTSP", "HTTP"];
+const protocols: CameraProtocol[] = ["GigE", "RTSP", "HTTP", "USB"];
 const cameraModes: CameraMode[] = ["auto", "snapshot"];
 const triggerSources: TriggerSource[] = ["software", "hardware", "timer", "external"];
 
@@ -73,6 +73,8 @@ export function CameraDialog({
         return "rtsp://192.168.1.100:554/stream";
       case "HTTP":
         return "http://192.168.1.100/snapshot";
+      case "USB":
+        return "/dev/video0";
       default:
         return "";
     }

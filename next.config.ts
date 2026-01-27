@@ -1,14 +1,29 @@
 import type { NextConfig } from "next"
+import path from "path"
+
+const isDev = process.env.NODE_ENV === 'development'
 
 const nextConfig: NextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: isDev,
   },
   images: {
-    unoptimized: true,
+    unoptimized: isDev,
+  },
+  experimental: {
+    optimizeCss: !isDev,
+    workerThreads: false,
+  },
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.optimization = {
+        ...config.optimization,
+        removeAvailableModules: false,
+        removeEmptyChunks: false,
+        splitChunks: false,
+      }
+    }
+    return config
   },
 }
 

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import type { Model } from "@/types/vision";
+import type { Model, Camera } from "@/types/vision";
 import PlusIcon from "@/components/icons/plus";
 import CubeIcon from "@/components/icons/cube";
 import { ModelUploadDialog } from "./model-upload-dialog";
@@ -13,9 +13,10 @@ import { ModelTestDialog } from "./model-test-dialog";
 
 interface ModelListProps {
   models: Model[];
+  cameras?: Camera[];
 }
 
-export function ModelList({ models: initialModels }: ModelListProps) {
+export function ModelList({ models: initialModels, cameras = [] }: ModelListProps) {
   const [models, setModels] = useState(initialModels);
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const [configDialogOpen, setConfigDialogOpen] = useState(false);
@@ -208,6 +209,7 @@ export function ModelList({ models: initialModels }: ModelListProps) {
         open={testDialogOpen}
         onOpenChange={setTestDialogOpen}
         model={selectedModel}
+        cameras={cameras}
       />
     </>
   );

@@ -43,33 +43,6 @@ export default function SettingsPage() {
 
         <Card className="border-border/50">
           <CardHeader>
-            <CardTitle className="text-lg font-display">Performance</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between py-2">
-              <div>
-                <p className="font-medium">GPU Acceleration</p>
-                <p className="text-sm text-muted-foreground">Use GPU for inference</p>
-              </div>
-              <input type="checkbox" defaultChecked className="size-5 rounded" />
-            </div>
-            <div className="flex items-center justify-between py-2">
-              <div>
-                <p className="font-medium">Max Workers</p>
-                <p className="text-sm text-muted-foreground">Parallel processing threads</p>
-              </div>
-              <select className="px-3 py-2 rounded-lg bg-muted border border-border text-sm">
-                <option>1</option>
-                <option>2</option>
-                <option>4</option>
-                <option>8</option>
-              </select>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-border/50">
-          <CardHeader>
             <CardTitle className="text-lg font-display">Storage</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">

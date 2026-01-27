@@ -30,12 +30,14 @@ export function ModelConfigDialog({
   onSave,
 }: ModelConfigDialogProps) {
   const [confidence, setConfidence] = useState(0.5);
+  const [iou, setIou] = useState(0.45);
   const [useROI, setUseROI] = useState(false);
   const [roi, setROI] = useState<ROI>({ x: 0, y: 0, width: 640, height: 480 });
 
   useEffect(() => {
     if (open && model) {
       setConfidence(model.confidence);
+      setIou(0.45); // Default IOU value
       setUseROI(!!model.roi);
       setROI(model.roi || { x: 0, y: 0, width: 640, height: 480 });
     }
@@ -83,6 +85,26 @@ export function ModelConfigDialog({
             </p>
           </div>
 
+          {/* IOU Threshold */}
+          <div className="space-y-3">
+            <div className="flex justify-between">
+              <label className="text-sm font-medium">IOU Threshold</label>
+              <span className="text-sm text-muted-foreground">
+                {(iou * 100).toFixed(0)}%
+              </span>
+            </div>
+            <Slider
+              value={[iou * 100]}
+              onValueChange={([value]) => setIou(value / 100)}
+              min={1}
+              max={100}
+              step={1}
+            />
+            <p className="text-xs text-muted-foreground">
+              Intersection over Union threshold for Non-Maximum Suppression
+            </p>
+          </div>
+
           {/* ROI Toggle */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
@@ -97,73 +119,17 @@ export function ModelConfigDialog({
               </Button>
             </div>
             {useROI && (
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="text-xs text-muted-foreground">X</label>
-                  <Input
-                    type="number"
-                    value={roi.x}
-                    onChange={(e) =>
-                      setROI({ ...roi, x: Number(e.target.value) })
-                    }
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs text-muted-foreground">Y</label>
-                  <Input
-                    type="number"
-                    value={roi.y}
-                    onChange={(e) =>
-                      setROI({ ...roi, y: Number(e.target.value) })
-                    }
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs text-muted-foreground">Width</label>
-                  <Input
-                    type="number"
-                    value={roi.width}
-                    onChange={(e) =>
-                      setROI({ ...roi, width: Number(e.target.value) })
-                    }
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs text-muted-foreground">Height</label>
-                  <Input
-                    type="number"
-                    value={roi.height}
-                    onChange={(e) =>
-                      setROI({ ...roi, height: Number(e.target.value) })
-                    }
-                  />
-                </div>
+              <div className="p-4 rounded-lg bg-muted/50 border border-border">
+                <p className="text-sm text-muted-foreground text-center">
+                  Click and drag on the live camera view to select ROI region
+                </p>
+                {roi && (
+                  <p className="text-xs text-muted-foreground text-center mt-2">
+                    Current ROI: X={roi.x}, Y={roi.y}, W={roi.width}, H={roi.height}
+                  </p>
+                )}
               </div>
             )}
-          </div>
-
-          {/* Classes Info */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Model Classes</label>
-            <div className="flex flex-wrap gap-1.5 p-3 rounded-lg bg-muted/50">
-              {model.classes.map((cls) => (
-                <span
-                  key={cls.id}
-                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs"
-                  style={{
-                    backgroundColor: `${cls.color}20`,
-                    color: cls.color,
-                    border: `1px solid ${cls.color}40`,
-                  }}
-                >
-                  <span
-                    className="size-2 rounded-full"
-                    style={{ backgroundColor: cls.color }}
-                  />
-                  {cls.name}
-                </span>
-              ))}
-            </div>
           </div>
 
           <DialogFooter>
