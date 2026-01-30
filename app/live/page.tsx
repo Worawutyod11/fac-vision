@@ -1,3 +1,5 @@
+"use client";
+
 import DashboardPageLayout from "@/components/dashboard/layout";
 import MonitorIcon from "@/components/icons/monitor";
 import { LiveMonitor } from "@/components/vision/live-monitor";

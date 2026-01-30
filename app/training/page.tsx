@@ -1,7 +1,7 @@
 import DashboardPageLayout from "@/components/dashboard/layout";
 import GearIcon from "@/components/icons/gear";
 
-export default function SettingsPage() {
+  export default function SettingsPage() {
   return (
     <DashboardPageLayout
       header={{

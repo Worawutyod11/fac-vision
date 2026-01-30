@@ -38,9 +38,9 @@ const projectNavItems = [
     icon: ZapIcon,
   },
   {
-    title: "Settings",
-    url: "/settings",
-    icon: GearIcon,
+    title: "Training AI",
+    url: "/training",
+    icon: CuteRobotIcon,
   },
 ];
 
