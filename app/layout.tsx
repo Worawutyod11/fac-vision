@@ -56,6 +56,11 @@ export default function RootLayout({
           type="font/ttf"
           crossOrigin="anonymous"
         />
+        <link
+          rel="icon"
+          href="/assets/logos/factory-pro-logo-wed.png"
+          sizes="any"
+        />
       </head>
       <body
         className={`${promptDisplay.variable} ${robotoMono.variable} antialiased`}
