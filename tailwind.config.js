@@ -63,6 +63,13 @@ module.exports = {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
+      spacing: {
+        gap: "var(--gap)",
+        sides: "var(--sides)",
+        "header-mobile": "var(--header-mobile)",
+        "header-height": "var(--header-height)",
+        15: "3.75rem",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
